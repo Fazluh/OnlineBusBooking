@@ -1,0 +1,75 @@
+﻿@model IEnumerable<OnlineBusBooking.BusMaster>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BusNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BustType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalSeat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeatColumn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeatRow)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookedSeat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvailableSeats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BusName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BustType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalSeat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeatColumn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeatRow)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookedSeat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvailableSeats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BusId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BusId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BusId })
+        </td>
+    </tr>
+}
+
+</table>

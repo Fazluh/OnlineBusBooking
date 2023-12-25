@@ -1,0 +1,51 @@
+﻿@model IEnumerable<OnlineBusBooking.PNRDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PNRNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalTickets)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PNRNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalTickets)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PNRDetailsID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PNRDetailsID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PNRDetailsID })
+        </td>
+    </tr>
+}
+
+</table>

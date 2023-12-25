@@ -1,0 +1,882 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OnlineBusBookingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookingMaster">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegId" Type="int" />
+          <Property Name="BusId" Type="int" />
+          <Property Name="Fname" Type="varchar" MaxLength="50" />
+          <Property Name="Lname" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Contact" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="SeatNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="TravelDate" Type="varchar" MaxLength="50" />
+          <Property Name="Origin" Type="varchar" MaxLength="50" />
+          <Property Name="Destination" Type="varchar" MaxLength="50" />
+          <Property Name="BoardingID" Type="int" />
+          <Property Name="Fare" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PNRNo" Type="varchar" MaxLength="50" />
+          <Property Name="ScheduleID" Type="int" />
+        </EntityType>
+        <EntityType Name="BusMaster">
+          <Key>
+            <PropertyRef Name="BusId" />
+          </Key>
+          <Property Name="BusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BusNo" Type="varchar" MaxLength="50" />
+          <Property Name="BustType" Type="varchar" MaxLength="50" />
+          <Property Name="TotalSeat" Type="int" />
+          <Property Name="SeatColumn" Type="int" />
+          <Property Name="SeatRow" Type="int" />
+          <Property Name="BookedSeat" Type="int" />
+          <Property Name="AvailableSeats" Type="int" />
+          <Property Name="BusName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CardDetails">
+          <Key>
+            <PropertyRef Name="CardID" />
+          </Key>
+          <Property Name="CardID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="CardType" Type="varchar" MaxLength="20" />
+          <Property Name="BankName" Type="varchar" MaxLength="50" />
+          <Property Name="CVVNo" Type="varchar" MaxLength="10" />
+          <Property Name="CardNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="CityDetails">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PickUpStand">
+          <Key>
+            <PropertyRef Name="StandId" />
+          </Key>
+          <Property Name="StandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RouteId" Type="int" />
+          <Property Name="PlaceName" Type="varchar" MaxLength="50" />
+          <Property Name="PlaceTime" Type="varchar" MaxLength="50" />
+          <Property Name="BusID" Type="int" />
+        </EntityType>
+        <EntityType Name="PNRDetails">
+          <Key>
+            <PropertyRef Name="PNRDetailsID" />
+          </Key>
+          <Property Name="PNRDetailsID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PNRNo" Type="varchar" MaxLength="50" />
+          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalTickets" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="regId" />
+          </Key>
+          <Property Name="regId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fname" Type="varchar" MaxLength="50" />
+          <Property Name="Lname" Type="varchar" MaxLength="50" />
+          <Property Name="EmailId" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="200" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Picode" Type="varchar" MaxLength="15" />
+          <Property Name="Contact" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RouteDetails">
+          <Key>
+            <PropertyRef Name="RouteID" />
+          </Key>
+          <Property Name="RouteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Origin" Type="varchar" MaxLength="50" />
+          <Property Name="Destination" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="BusID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'OnlineBusBooking.dbo.ScheduleMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ScheduleMaster">
+          <Key>
+            <PropertyRef Name="ScheduleId" />
+          </Key>
+          <Property Name="ScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BusId" Type="int" />
+          <Property Name="Date" Type="varchar" MaxLength="50" />
+          <Property Name="Fare" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="EstimatedTime" Type="varchar" MaxLength="50" />
+          <Property Name="ArivalTime" Type="varchar" MaxLength="50" />
+          <Property Name="DepartureTime" Type="varchar" MaxLength="50" />
+          <Property Name="RouteID" Type="int" />
+          <Property Name="BookedSeats" Type="int" />
+          <Property Name="AvailableSeats" Type="int" />
+        </EntityType>
+        <Function Name="addBordingDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RouteID" Type="int" Mode="In" />
+          <Parameter Name="PlaceName" Type="varchar" Mode="In" />
+          <Parameter Name="PlaceTime" Type="varchar" Mode="In" />
+          <Parameter Name="BusID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetPassengerDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PNRNo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ispAddBusDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BusNo" Type="varchar" Mode="In" />
+          <Parameter Name="BustType" Type="varchar" Mode="In" />
+          <Parameter Name="SeatColumn" Type="int" Mode="In" />
+          <Parameter Name="SeatRow" Type="int" Mode="In" />
+          <Parameter Name="Origin" Type="varchar" Mode="In" />
+          <Parameter Name="Destination" Type="varchar" Mode="In" />
+          <Parameter Name="BusName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ispAddBusSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Date" Type="varchar" Mode="In" />
+          <Parameter Name="BusID" Type="int" Mode="In" />
+          <Parameter Name="Fare" Type="decimal" Mode="In" />
+          <Parameter Name="EstimatdTime" Type="varchar" Mode="In" />
+          <Parameter Name="ArrivalTime" Type="varchar" Mode="In" />
+          <Parameter Name="DepartureTime" Type="varchar" Mode="In" />
+          <Parameter Name="RouteID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ispAddCardDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="CardType" Type="varchar" Mode="In" />
+          <Parameter Name="BankName" Type="varchar" Mode="In" />
+          <Parameter Name="CVVNo" Type="varchar" Mode="In" />
+          <Parameter Name="CardNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="TotalAmount" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="ispAddPassengerDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RegId" Type="int" Mode="In" />
+          <Parameter Name="BusId" Type="int" Mode="In" />
+          <Parameter Name="Fname" Type="varchar" Mode="In" />
+          <Parameter Name="Lname" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Contact" Type="varchar" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="SeatNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="TravelDate" Type="varchar" Mode="In" />
+          <Parameter Name="Origin" Type="varchar" Mode="In" />
+          <Parameter Name="Destination" Type="varchar" Mode="In" />
+          <Parameter Name="BoardingId" Type="int" Mode="In" />
+          <Parameter Name="Fare" Type="decimal" Mode="In" />
+          <Parameter Name="TotalSeats" Type="int" Mode="In" />
+          <Parameter Name="PNRNo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ispAddPNRDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PNRNo" Type="varchar" Mode="In" />
+          <Parameter Name="TotalAmount" Type="decimal" Mode="In" />
+          <Parameter Name="TotalTicket" Type="int" Mode="In" />
+          <Parameter Name="CreatedBy" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ispGetAvailableBusDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Origin" Type="varchar" Mode="In" />
+          <Parameter Name="Destination" Type="varchar" Mode="In" />
+          <Parameter Name="TravelDate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ispGetBoardingPoints" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BusID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ispGetBookedSeatNo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BusID" Type="int" Mode="In" />
+          <Parameter Name="TravelDate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ispGetBookingReportByAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ispGetBusDataByBusID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BusID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ispGetBusDetailsForUpdation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ispGetCity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ispGetPNRDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ispGetRouteDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ispUpdateBusData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BusID" Type="int" Mode="In" />
+          <Parameter Name="BusNo" Type="varchar" Mode="In" />
+          <Parameter Name="BusType" Type="varchar" Mode="In" />
+          <Parameter Name="seatColumn" Type="int" Mode="In" />
+          <Parameter Name="SeatRow" Type="int" Mode="In" />
+          <Parameter Name="BusName" Type="varchar" Mode="In" />
+          <Parameter Name="Origin" Type="varchar" Mode="In" />
+          <Parameter Name="Destination" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ispUserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MobileNo" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ispUserRegistration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FName" Type="varchar" Mode="In" />
+          <Parameter Name="LName" Type="varchar" Mode="In" />
+          <Parameter Name="EmailId" Type="varchar" Mode="In" />
+          <Parameter Name="Address" Type="varchar" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="PinCode" Type="varchar" Mode="In" />
+          <Parameter Name="ContactNo" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="Ret_Val" Type="bigint" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="OnlineBusBookingModelStoreContainer">
+          <EntitySet Name="BookingMaster" EntityType="Self.BookingMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusMaster" EntityType="Self.BusMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardDetails" EntityType="Self.CardDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityDetails" EntityType="Self.CityDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PickUpStand" EntityType="Self.PickUpStand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PNRDetails" EntityType="Self.PNRDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registration" EntityType="Self.Registration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RouteDetails" EntityType="Self.RouteDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduleMaster" EntityType="Self.ScheduleMaster" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ScheduleMaster].[ScheduleId] AS [ScheduleId], 
+    [ScheduleMaster].[BusId] AS [BusId], 
+    [ScheduleMaster].[Date] AS [Date], 
+    [ScheduleMaster].[Fare] AS [Fare], 
+    [ScheduleMaster].[EstimatedTime] AS [EstimatedTime], 
+    [ScheduleMaster].[ArivalTime] AS [ArivalTime], 
+    [ScheduleMaster].[DepartureTime] AS [DepartureTime], 
+    [ScheduleMaster].[RouteID] AS [RouteID], 
+    [ScheduleMaster].[BookedSeats] AS [BookedSeats], 
+    [ScheduleMaster].[AvailableSeats] AS [AvailableSeats]
+    FROM [dbo].[ScheduleMaster] AS [ScheduleMaster]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlineBusBookingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BookingMaster">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegId" Type="Int32" />
+          <Property Name="BusId" Type="Int32" />
+          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SeatNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TravelDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Origin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Destination" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BoardingID" Type="Int32" />
+          <Property Name="Fare" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PNRNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BusMaster">
+          <Key>
+            <PropertyRef Name="BusId" />
+          </Key>
+          <Property Name="BusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BustType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalSeat" Type="Int32" />
+          <Property Name="SeatColumn" Type="Int32" />
+          <Property Name="SeatRow" Type="Int32" />
+          <Property Name="BookedSeat" Type="Int32" />
+          <Property Name="AvailableSeats" Type="Int32" />
+          <Property Name="BusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CardDetail">
+          <Key>
+            <PropertyRef Name="CardID" />
+          </Key>
+          <Property Name="CardID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CardType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CVVNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CardNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CityDetail">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PickUpStand">
+          <Key>
+            <PropertyRef Name="StandId" />
+          </Key>
+          <Property Name="StandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RouteId" Type="Int32" />
+          <Property Name="PlaceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PlaceTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BusID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PNRDetail">
+          <Key>
+            <PropertyRef Name="PNRDetailsID" />
+          </Key>
+          <Property Name="PNRDetailsID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PNRNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalTickets" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="regId" />
+          </Key>
+          <Property Name="regId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Picode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RouteDetail">
+          <Key>
+            <PropertyRef Name="RouteID" />
+          </Key>
+          <Property Name="RouteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Origin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Destination" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="BusID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ScheduleMaster">
+          <Key>
+            <PropertyRef Name="ScheduleId" />
+          </Key>
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusId" Type="Int32" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fare" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="EstimatedTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ArivalTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartureTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RouteID" Type="Int32" />
+          <Property Name="BookedSeats" Type="Int32" />
+          <Property Name="AvailableSeats" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="OnlineBusBookingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookingMasters" EntityType="Self.BookingMaster" />
+          <EntitySet Name="BusMasters" EntityType="Self.BusMaster" />
+          <EntitySet Name="CardDetails" EntityType="Self.CardDetail" />
+          <EntitySet Name="CityDetails" EntityType="Self.CityDetail" />
+          <EntitySet Name="PickUpStands" EntityType="Self.PickUpStand" />
+          <EntitySet Name="PNRDetails" EntityType="Self.PNRDetail" />
+          <EntitySet Name="Registrations" EntityType="Self.Registration" />
+          <EntitySet Name="RouteDetails" EntityType="Self.RouteDetail" />
+          <EntitySet Name="ScheduleMasters" EntityType="Self.ScheduleMaster" />
+          <FunctionImport Name="addBordingDetails">
+            <Parameter Name="RouteID" Mode="In" Type="Int32" />
+            <Parameter Name="PlaceName" Mode="In" Type="String" />
+            <Parameter Name="PlaceTime" Mode="In" Type="String" />
+            <Parameter Name="BusID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetPassengerDetails" ReturnType="Collection(OnlineBusBookingModel.GetPassengerDetails_Result)">
+            <Parameter Name="PNRNo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ispAddBusDetails">
+            <Parameter Name="BusNo" Mode="In" Type="String" />
+            <Parameter Name="BustType" Mode="In" Type="String" />
+            <Parameter Name="SeatColumn" Mode="In" Type="Int32" />
+            <Parameter Name="SeatRow" Mode="In" Type="Int32" />
+            <Parameter Name="Origin" Mode="In" Type="String" />
+            <Parameter Name="Destination" Mode="In" Type="String" />
+            <Parameter Name="BusName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ispAddBusSchedule">
+            <Parameter Name="Date" Mode="In" Type="String" />
+            <Parameter Name="BusID" Mode="In" Type="Int32" />
+            <Parameter Name="Fare" Mode="In" Type="Decimal" />
+            <Parameter Name="EstimatdTime" Mode="In" Type="String" />
+            <Parameter Name="ArrivalTime" Mode="In" Type="String" />
+            <Parameter Name="DepartureTime" Mode="In" Type="String" />
+            <Parameter Name="RouteID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ispAddCardDetails">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="CardType" Mode="In" Type="String" />
+            <Parameter Name="BankName" Mode="In" Type="String" />
+            <Parameter Name="CVVNo" Mode="In" Type="String" />
+            <Parameter Name="CardNo" Mode="In" Type="String" />
+            <Parameter Name="TotalAmount" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="ispAddPassengerDetails">
+            <Parameter Name="RegId" Mode="In" Type="Int32" />
+            <Parameter Name="BusId" Mode="In" Type="Int32" />
+            <Parameter Name="Fname" Mode="In" Type="String" />
+            <Parameter Name="Lname" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Contact" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="SeatNo" Mode="In" Type="String" />
+            <Parameter Name="TravelDate" Mode="In" Type="String" />
+            <Parameter Name="Origin" Mode="In" Type="String" />
+            <Parameter Name="Destination" Mode="In" Type="String" />
+            <Parameter Name="BoardingId" Mode="In" Type="Int32" />
+            <Parameter Name="Fare" Mode="In" Type="Decimal" />
+            <Parameter Name="TotalSeats" Mode="In" Type="Int32" />
+            <Parameter Name="PNRNo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ispAddPNRDetails">
+            <Parameter Name="PNRNo" Mode="In" Type="String" />
+            <Parameter Name="TotalAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="TotalTicket" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ispGetAvailableBusDetails" ReturnType="Collection(OnlineBusBookingModel.ispGetAvailableBusDetails_Result)">
+            <Parameter Name="Origin" Mode="In" Type="String" />
+            <Parameter Name="Destination" Mode="In" Type="String" />
+            <Parameter Name="TravelDate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ispGetBoardingPoints" ReturnType="Collection(OnlineBusBookingModel.ispGetBoardingPoints_Result)">
+            <Parameter Name="BusID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ispGetBookedSeatNo" ReturnType="Collection(String)">
+            <Parameter Name="BusID" Mode="In" Type="Int32" />
+            <Parameter Name="TravelDate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ispGetBookingReportByAdmin" ReturnType="Collection(OnlineBusBookingModel.ispGetBookingReportByAdmin_Result)" />
+          <FunctionImport Name="ispGetBusDataByBusID" ReturnType="Collection(OnlineBusBookingModel.ispGetBusDataByBusID_Result)">
+            <Parameter Name="BusID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ispGetBusDetailsForUpdation" ReturnType="Collection(OnlineBusBookingModel.ispGetBusDetailsForUpdation_Result)" />
+          <FunctionImport Name="ispGetCity" ReturnType="Collection(OnlineBusBookingModel.ispGetCity_Result)" />
+          <FunctionImport Name="ispGetPNRDetails" ReturnType="Collection(OnlineBusBookingModel.ispGetPNRDetails_Result)">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ispGetRouteDetails" ReturnType="Collection(OnlineBusBookingModel.ispGetRouteDetails_Result)" />
+          <FunctionImport Name="ispUpdateBusData">
+            <Parameter Name="BusID" Mode="In" Type="Int32" />
+            <Parameter Name="BusNo" Mode="In" Type="String" />
+            <Parameter Name="BusType" Mode="In" Type="String" />
+            <Parameter Name="seatColumn" Mode="In" Type="Int32" />
+            <Parameter Name="SeatRow" Mode="In" Type="Int32" />
+            <Parameter Name="BusName" Mode="In" Type="String" />
+            <Parameter Name="Origin" Mode="In" Type="String" />
+            <Parameter Name="Destination" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ispUserLogin" ReturnType="Collection(OnlineBusBookingModel.ispUserLogin_Result)">
+            <Parameter Name="MobileNo" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ispUserRegistration">
+            <Parameter Name="FName" Mode="In" Type="String" />
+            <Parameter Name="LName" Mode="In" Type="String" />
+            <Parameter Name="EmailId" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="PinCode" Mode="In" Type="String" />
+            <Parameter Name="ContactNo" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Ret_Val" Mode="InOut" Type="Int64" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetPassengerDetails_Result">
+          <Property Type="String" Name="Fname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Lname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SeatNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TravelDate" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Origin" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Destination" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PlaceName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ispGetAvailableBusDetails_Result">
+          <Property Type="Int32" Name="BusId" Nullable="false" />
+          <Property Type="String" Name="BusName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BusNo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SeatColumn" Nullable="true" />
+          <Property Type="Int32" Name="SeatRow" Nullable="true" />
+          <Property Type="String" Name="BustType" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TotalSeat" Nullable="true" />
+          <Property Type="Int32" Name="AvailableSeats" Nullable="true" />
+          <Property Type="Decimal" Name="Fare" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="EstimatedTime" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DepartureTime" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ArivalTime" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ispGetBoardingPoints_Result">
+          <Property Type="Int32" Name="StandId" Nullable="false" />
+          <Property Type="Int32" Name="RouteId" Nullable="true" />
+          <Property Type="String" Name="PlaceName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PlaceTime" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="BusID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ispGetBookingReportByAdmin_Result">
+          <Property Type="String" Name="PaxName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SeatNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TravelDate" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="Origin" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Destination" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Fare" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="BookedBy" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="BusName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ispGetBusDataByBusID_Result">
+          <Property Type="Int32" Name="BusId" Nullable="false" />
+          <Property Type="String" Name="BusNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BustType" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SeatColumn" Nullable="true" />
+          <Property Type="String" Name="BusName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SeatRow" Nullable="true" />
+          <Property Type="String" Name="Origin" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Destination" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="RouteID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ispGetBusDetailsForUpdation_Result">
+          <Property Type="Int32" Name="BusId" Nullable="false" />
+          <Property Type="String" Name="BusNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BusName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BustType" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SeatColumn" Nullable="true" />
+          <Property Type="Int32" Name="SeatRow" Nullable="true" />
+          <Property Type="String" Name="Origin" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Destination" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="RouteID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ispGetCity_Result">
+          <Property Type="Int64" Name="CityID" Nullable="false" />
+          <Property Type="String" Name="CityName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ispGetPNRDetails_Result">
+          <Property Type="Int64" Name="PNRDetailsID" Nullable="false" />
+          <Property Type="String" Name="PNRNo" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="TotalTickets" Nullable="true" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ispGetRouteDetails_Result">
+          <Property Type="Int32" Name="RouteID" Nullable="false" />
+          <Property Type="String" Name="Origin" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Destination" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="BusID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ispUserLogin_Result">
+          <Property Type="Int32" Name="regId" Nullable="false" />
+          <Property Type="String" Name="Fname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Lname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmailId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Picode" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnlineBusBookingModelStoreContainer" CdmEntityContainer="OnlineBusBookingEntities">
+          <EntitySetMapping Name="BookingMasters">
+            <EntityTypeMapping TypeName="OnlineBusBookingModel.BookingMaster">
+              <MappingFragment StoreEntitySet="BookingMaster">
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="RegId" ColumnName="RegId" />
+                <ScalarProperty Name="BusId" ColumnName="BusId" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="SeatNo" ColumnName="SeatNo" />
+                <ScalarProperty Name="TravelDate" ColumnName="TravelDate" />
+                <ScalarProperty Name="Origin" ColumnName="Origin" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="BoardingID" ColumnName="BoardingID" />
+                <ScalarProperty Name="Fare" ColumnName="Fare" />
+                <ScalarProperty Name="PNRNo" ColumnName="PNRNo" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusMasters">
+            <EntityTypeMapping TypeName="OnlineBusBookingModel.BusMaster">
+              <MappingFragment StoreEntitySet="BusMaster">
+                <ScalarProperty Name="BusId" ColumnName="BusId" />
+                <ScalarProperty Name="BusNo" ColumnName="BusNo" />
+                <ScalarProperty Name="BustType" ColumnName="BustType" />
+                <ScalarProperty Name="TotalSeat" ColumnName="TotalSeat" />
+                <ScalarProperty Name="SeatColumn" ColumnName="SeatColumn" />
+                <ScalarProperty Name="SeatRow" ColumnName="SeatRow" />
+                <ScalarProperty Name="BookedSeat" ColumnName="BookedSeat" />
+                <ScalarProperty Name="AvailableSeats" ColumnName="AvailableSeats" />
+                <ScalarProperty Name="BusName" ColumnName="BusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardDetails">
+            <EntityTypeMapping TypeName="OnlineBusBookingModel.CardDetail">
+              <MappingFragment StoreEntitySet="CardDetails">
+                <ScalarProperty Name="CardID" ColumnName="CardID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CardType" ColumnName="CardType" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="CVVNo" ColumnName="CVVNo" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityDetails">
+            <EntityTypeMapping TypeName="OnlineBusBookingModel.CityDetail">
+              <MappingFragment StoreEntitySet="CityDetails">
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PickUpStands">
+            <EntityTypeMapping TypeName="OnlineBusBookingModel.PickUpStand">
+              <MappingFragment StoreEntitySet="PickUpStand">
+                <ScalarProperty Name="StandId" ColumnName="StandId" />
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
+                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+                <ScalarProperty Name="PlaceTime" ColumnName="PlaceTime" />
+                <ScalarProperty Name="BusID" ColumnName="BusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PNRDetails">
+            <EntityTypeMapping TypeName="OnlineBusBookingModel.PNRDetail">
+              <MappingFragment StoreEntitySet="PNRDetails">
+                <ScalarProperty Name="PNRDetailsID" ColumnName="PNRDetailsID" />
+                <ScalarProperty Name="PNRNo" ColumnName="PNRNo" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="TotalTickets" ColumnName="TotalTickets" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registrations">
+            <EntityTypeMapping TypeName="OnlineBusBookingModel.Registration">
+              <MappingFragment StoreEntitySet="Registration">
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Picode" ColumnName="Picode" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RouteDetails">
+            <EntityTypeMapping TypeName="OnlineBusBookingModel.RouteDetail">
+              <MappingFragment StoreEntitySet="RouteDetails">
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="Origin" ColumnName="Origin" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="BusID" ColumnName="BusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduleMasters">
+            <EntityTypeMapping TypeName="OnlineBusBookingModel.ScheduleMaster">
+              <MappingFragment StoreEntitySet="ScheduleMaster">
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="BusId" ColumnName="BusId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Fare" ColumnName="Fare" />
+                <ScalarProperty Name="EstimatedTime" ColumnName="EstimatedTime" />
+                <ScalarProperty Name="ArivalTime" ColumnName="ArivalTime" />
+                <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="BookedSeats" ColumnName="BookedSeats" />
+                <ScalarProperty Name="AvailableSeats" ColumnName="AvailableSeats" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="addBordingDetails" FunctionName="OnlineBusBookingModel.Store.addBordingDetails" />
+          <FunctionImportMapping FunctionImportName="GetPassengerDetails" FunctionName="OnlineBusBookingModel.Store.GetPassengerDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineBusBookingModel.GetPassengerDetails_Result">
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="SeatNo" ColumnName="SeatNo" />
+                <ScalarProperty Name="TravelDate" ColumnName="TravelDate" />
+                <ScalarProperty Name="Origin" ColumnName="Origin" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ispAddBusDetails" FunctionName="OnlineBusBookingModel.Store.ispAddBusDetails" />
+          <FunctionImportMapping FunctionImportName="ispAddBusSchedule" FunctionName="OnlineBusBookingModel.Store.ispAddBusSchedule" />
+          <FunctionImportMapping FunctionImportName="ispAddCardDetails" FunctionName="OnlineBusBookingModel.Store.ispAddCardDetails" />
+          <FunctionImportMapping FunctionImportName="ispAddPassengerDetails" FunctionName="OnlineBusBookingModel.Store.ispAddPassengerDetails" />
+          <FunctionImportMapping FunctionImportName="ispAddPNRDetails" FunctionName="OnlineBusBookingModel.Store.ispAddPNRDetails" />
+          <FunctionImportMapping FunctionImportName="ispGetAvailableBusDetails" FunctionName="OnlineBusBookingModel.Store.ispGetAvailableBusDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineBusBookingModel.ispGetAvailableBusDetails_Result">
+                <ScalarProperty Name="BusId" ColumnName="BusId" />
+                <ScalarProperty Name="BusName" ColumnName="BusName" />
+                <ScalarProperty Name="BusNo" ColumnName="BusNo" />
+                <ScalarProperty Name="SeatColumn" ColumnName="SeatColumn" />
+                <ScalarProperty Name="SeatRow" ColumnName="SeatRow" />
+                <ScalarProperty Name="BustType" ColumnName="BustType" />
+                <ScalarProperty Name="TotalSeat" ColumnName="TotalSeat" />
+                <ScalarProperty Name="AvailableSeats" ColumnName="AvailableSeats" />
+                <ScalarProperty Name="Fare" ColumnName="Fare" />
+                <ScalarProperty Name="EstimatedTime" ColumnName="EstimatedTime" />
+                <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+                <ScalarProperty Name="ArivalTime" ColumnName="ArivalTime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ispGetBoardingPoints" FunctionName="OnlineBusBookingModel.Store.ispGetBoardingPoints">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineBusBookingModel.ispGetBoardingPoints_Result">
+                <ScalarProperty Name="StandId" ColumnName="StandId" />
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
+                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+                <ScalarProperty Name="PlaceTime" ColumnName="PlaceTime" />
+                <ScalarProperty Name="BusID" ColumnName="BusID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ispGetBookedSeatNo" FunctionName="OnlineBusBookingModel.Store.ispGetBookedSeatNo" />
+          <FunctionImportMapping FunctionImportName="ispGetBookingReportByAdmin" FunctionName="OnlineBusBookingModel.Store.ispGetBookingReportByAdmin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineBusBookingModel.ispGetBookingReportByAdmin_Result">
+                <ScalarProperty Name="PaxName" ColumnName="PaxName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="SeatNo" ColumnName="SeatNo" />
+                <ScalarProperty Name="TravelDate" ColumnName="TravelDate" />
+                <ScalarProperty Name="Origin" ColumnName="Origin" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="Fare" ColumnName="Fare" />
+                <ScalarProperty Name="BookedBy" ColumnName="BookedBy" />
+                <ScalarProperty Name="BusName" ColumnName="BusName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ispGetBusDataByBusID" FunctionName="OnlineBusBookingModel.Store.ispGetBusDataByBusID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineBusBookingModel.ispGetBusDataByBusID_Result">
+                <ScalarProperty Name="BusId" ColumnName="BusId" />
+                <ScalarProperty Name="BusNo" ColumnName="BusNo" />
+                <ScalarProperty Name="BustType" ColumnName="BustType" />
+                <ScalarProperty Name="SeatColumn" ColumnName="SeatColumn" />
+                <ScalarProperty Name="BusName" ColumnName="BusName" />
+                <ScalarProperty Name="SeatRow" ColumnName="SeatRow" />
+                <ScalarProperty Name="Origin" ColumnName="Origin" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ispGetBusDetailsForUpdation" FunctionName="OnlineBusBookingModel.Store.ispGetBusDetailsForUpdation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineBusBookingModel.ispGetBusDetailsForUpdation_Result">
+                <ScalarProperty Name="BusId" ColumnName="BusId" />
+                <ScalarProperty Name="BusNo" ColumnName="BusNo" />
+                <ScalarProperty Name="BusName" ColumnName="BusName" />
+                <ScalarProperty Name="BustType" ColumnName="BustType" />
+                <ScalarProperty Name="SeatColumn" ColumnName="SeatColumn" />
+                <ScalarProperty Name="SeatRow" ColumnName="SeatRow" />
+                <ScalarProperty Name="Origin" ColumnName="Origin" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ispGetCity" FunctionName="OnlineBusBookingModel.Store.ispGetCity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineBusBookingModel.ispGetCity_Result">
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ispGetPNRDetails" FunctionName="OnlineBusBookingModel.Store.ispGetPNRDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineBusBookingModel.ispGetPNRDetails_Result">
+                <ScalarProperty Name="PNRDetailsID" ColumnName="PNRDetailsID" />
+                <ScalarProperty Name="PNRNo" ColumnName="PNRNo" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="TotalTickets" ColumnName="TotalTickets" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ispGetRouteDetails" FunctionName="OnlineBusBookingModel.Store.ispGetRouteDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineBusBookingModel.ispGetRouteDetails_Result">
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="Origin" ColumnName="Origin" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="BusID" ColumnName="BusID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ispUpdateBusData" FunctionName="OnlineBusBookingModel.Store.ispUpdateBusData" />
+          <FunctionImportMapping FunctionImportName="ispUserLogin" FunctionName="OnlineBusBookingModel.Store.ispUserLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineBusBookingModel.ispUserLogin_Result">
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Picode" ColumnName="Picode" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ispUserRegistration" FunctionName="OnlineBusBookingModel.Store.ispUserRegistration" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

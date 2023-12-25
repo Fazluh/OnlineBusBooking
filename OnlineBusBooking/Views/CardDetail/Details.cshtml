@@ -1,0 +1,74 @@
+﻿@model OnlineBusBooking.CardDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CardDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CardType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CVVNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CVVNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CardNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CardID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
